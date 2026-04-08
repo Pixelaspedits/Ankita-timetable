@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="CS Timetable">
+<title>CS Ankita Priya Time Table 2026</title>
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700&f[]=cabinet-grotesk@400,500,700,800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --font-display: 'Cabinet Grotesk', sans-serif;
+  --font-body: 'Satoshi', sans-serif;
+  --bg: #f7f6f2;
+  --surface: #ffffff;
+  --surface2: #f3f0ec;
+  --border: rgba(0,0,0,0.09);
+  --border-strong: rgba(0,0,0,0.15);
+  --text: #1a1814;
+  --text-muted: #6b6a66;
+  --text-faint: #b0afa9;
+  --primary: #016064;
+  --primary-light: #e0f0ef;
+  --accent: #016064;
+  --today-bg: #fff8e6;
+  --today-border: #e6a817;
+  --phase-bg: #1a1814;
+  --phase-text: #f7f6f2;
+  --shadow: 0 1px 3px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.06);
+  --radius: 12px;
+  --row-h: 60px;
+  --transition: 180ms cubic-bezier(0.16,1,0.3,1);
+  /* subject colors */
+  --drafting: #2563eb;
+  --drafting-bg: #eff6ff;
+  --crvi: #7c3aed;
+  --crvi-bg: #f5f3ff;
+  --cmadd: #0891b2;
+  --cmadd-bg: #ecfeff;
+  --csrsg: #059669;
+  --csrsg-bg: #ecfdf5;
+  --ibc: #d97706;
+  --ibc-bg: #fffbeb;
+  --esg: #dc2626;
+  --esg-bg: #fef2f2;
+  --smcf: #7c3aed;
+  --smcf-bg: #faf5ff;
+}
+[data-theme="dark"] {
+  --bg: #131211;
+  --surface: #1c1b19;
+  --surface2: #232220;
+  --border: rgba(255,255,255,0.08);
+  --border-strong: rgba(255,255,255,0.14);
+  --text: #e8e7e3;
+  --text-muted: #7a7974;
+  --text-faint: #4a4946;
+  --primary: #4f9ea3;
+  --primary-light: #1a2f30;
+  --today-bg: #2a2210;
+  --today-border: #ca8a04;
+  --phase-bg: #e8e7e3;
+  --phase-text: #1a1814;
+  --drafting-bg: #1e2a3a;
+  --crvi-bg: #231a36;
+  --cmadd-bg: #0f2a30;
+  --csrsg-bg: #0f2a1e;
+  --ibc-bg: #2a1e0a;
+  --esg-bg: #2a1010;
+  --smcf-bg: #1e1530;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:none;text-size-adjust:none;-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+body{font-family:var(--font-body);font-size:16px;color:var(--text);background:var(--bg);min-height:100dvh;padding-bottom:env(safe-area-inset-bottom)}
+
+/* TOP BAR */
+.topbar{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.topbar-left{display:flex;flex-direction:column;gap:2px}
+.site-title{font-family:var(--font-display);font-size:clamp(14px,2vw,18px);font-weight:800;color:var(--text);letter-spacing:-0.3px}
+.countdown{font-size:12px;font-weight:600;color:var(--primary);letter-spacing:0.3px}
+.topbar-right{display:flex;align-items:center;gap:10px}
+.progress-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+.progress-label{font-size:11px;color:var(--text-muted);font-weight:500}
+.progress-bar-outer{width:120px;height:6px;background:var(--surface2);border-radius:99px;overflow:hidden}
+.progress-bar-inner{height:100%;background:var(--primary);border-radius:99px;transition:width 0.4s ease}
+.theme-btn{width:38px;height:38px;border-radius:99px;border:1px solid var(--border);background:var(--surface2);color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;-webkit-tap-highlight-color:transparent}
+.theme-btn:active{transform:scale(0.93)}
+
+/* HERO */
+.hero{padding:28px 20px 20px;text-align:center;background:var(--surface);border-bottom:1px solid var(--border)}
+.hero-heading{font-family:var(--font-display);font-size:clamp(22px,4vw,34px);font-weight:800;color:var(--text);letter-spacing:-0.5px;line-height:1.1;margin-bottom:10px}
+.hero-quote{font-size:14px;color:var(--text-muted);font-style:italic;max-width:480px;margin:0 auto 16px;line-height:1.6;font-weight:400}
+.hero-quote span{color:var(--primary);font-weight:600;font-style:normal}
+
+/* LEGEND */
+.legend{display:flex;flex-wrap:wrap;gap:8px;padding:14px 20px;background:var(--surface);border-bottom:1px solid var(--border);justify-content:center}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--text-muted);letter-spacing:0.3px}
+.legend-dot{width:8px;height:8px;border-radius:50%}
+
+/* TABLE WRAP */
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;padding:16px 12px 40px}
+table{border-collapse:separate;border-spacing:0;width:100%;min-width:900px;background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;border:1px solid var(--border)}
+
+/* STICKY HEADER */
+thead tr th{position:sticky;top:65px;z-index:10;background:var(--phase-bg);color:var(--phase-text);font-family:var(--font-display);font-size:11px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;padding:14px 12px;border-bottom:2px solid var(--border-strong);white-space:nowrap}
+thead tr th:first-child{position:sticky;left:0;z-index:20;border-right:1px solid var(--border)}
+
+/* ROWS */
+tbody tr{border-bottom:1px solid var(--border)}
+tbody tr:last-child{border-bottom:none}
+tbody tr td{padding:0 12px;height:var(--row-h);vertical-align:middle;border-right:1px solid var(--border);font-size:13px;line-height:1.45}
+tbody tr td:last-child{border-right:none}
+
+/* STICKY DATE COL */
+td.date-cell{position:sticky;left:0;z-index:5;background:var(--surface);border-right:2px solid var(--border-strong);min-width:90px;white-space:nowrap}
+tr.today-row td.date-cell{background:var(--today-bg)}
+tr.today-row td{background:var(--today-bg)}
+
+/* DATE CELL INNER */
+.date-inner{display:flex;flex-direction:column;gap:1px}
+.date-day{font-size:15px;font-weight:700;color:var(--text);font-family:var(--font-display)}
+.date-weekday{font-size:10px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px}
+.today-badge{display:inline-block;font-size:9px;font-weight:700;background:var(--today-border);color:#fff;border-radius:4px;padding:1px 4px;letter-spacing:0.3px;margin-top:2px}
+
+/* PHASE DIVIDER */
+tr.phase-row td{background:var(--phase-bg);color:var(--phase-text);font-family:var(--font-display);font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:10px 16px;height:38px}
+tr.phase-row td .phase-label{display:flex;align-items:center;gap:8px}
+tr.phase-row td .phase-dot{width:8px;height:8px;border-radius:50%;background:var(--primary)}
+
+/* SUBJECT PILLS */
+.subject-cell{display:flex;flex-direction:column;gap:4px}
+.subject-pill{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:3px 7px;border-radius:6px;letter-spacing:0.2px;width:fit-content}
+.chapter-text{font-size:12px;color:var(--text);font-weight:500;line-height:1.4}
+.pill-DRAFTING{background:var(--drafting-bg);color:var(--drafting)}
+.pill-CRVI{background:var(--crvi-bg);color:var(--crvi)}
+.pill-CMADD{background:var(--cmadd-bg);color:var(--cmadd)}
+.pill-CSRSG{background:var(--csrsg-bg);color:var(--csrsg)}
+.pill-IBC{background:var(--ibc-bg);color:var(--ibc)}
+.pill-ESG{background:var(--esg-bg);color:var(--esg)}
+.pill-SMCF{background:var(--smcf-bg);color:var(--smcf)}
+
+/* PRIORITY DOTS */
+.p-high::before{content:"●";color:#dc2626;margin-right:3px;font-size:9px}
+.p-med::before{content:"●";color:#d97706;margin-right:3px;font-size:9px}
+.p-low::before{content:"●";color:#16a34a;margin-right:3px;font-size:9px}
+.p-open::before{content:"◇";color:#6b7280;margin-right:3px;font-size:10px}
+.p-mock::before{content:"★";color:#7c3aed;margin-right:3px;font-size:10px}
+
+/* SESSION CELLS */
+td.session-cell{min-width:180px;padding:10px 12px}
+.session-label{font-size:10px;font-weight:700;color:var(--text-faint);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:3px}
+
+/* TICK CELL */
+td.tick-cell{width:60px;min-width:60px;text-align:center;vertical-align:middle}
+.tick-btn{width:44px;height:44px;border-radius:10px;border:2px solid var(--border-strong);background:var(--surface2);color:var(--text-faint);display:flex;align-items:center;justify-content:center;cursor:pointer;margin:0 auto;-webkit-tap-highlight-color:transparent;transition:all var(--transition)}
+.tick-btn:active{transform:scale(0.88)}
+.tick-btn.done{background:#16a34a;border-color:#16a34a;color:#fff;box-shadow:0 2px 8px rgba(22,163,74,0.35)}
+.tick-btn svg{pointer-events:none}
+@keyframes popIn{0%{transform:scale(0.7)}60%{transform:scale(1.15)}100%{transform:scale(1)}}
+.tick-btn.pop{animation:popIn 0.25s ease forwards}
+
+/* BUFFER / LIGHT ROWS */
+tr.buffer-row td{background:var(--surface2)}
+tr.buffer-row td.date-cell{background:var(--surface2)}
+
+/* SPECIAL ROWS */
+.mock-label{font-size:13px;font-weight:700;color:#7c3aed;display:flex;align-items:center;gap:6px}
+.open-label{font-size:12px;color:var(--text-muted);font-style:italic}
+
+/* SCROLL HINT */
+.scroll-hint{text-align:center;font-size:11px;color:var(--text-faint);padding:8px;display:none}
+@media(max-width:900px){.scroll-hint{display:block}}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .topbar{padding:10px 14px}
+  .hero{padding:20px 14px 16px}
+  .legend{padding:10px 14px}
+  .table-wrap{padding:10px 6px 40px}
+  .progress-bar-outer{width:80px}
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <div class="topbar-left">
+    <div class="site-title">CS Ankita Priya — Time Table 2026</div>
+    <div class="countdown" id="countdown">Loading...</div>
+  </div>
+  <div class="topbar-right">
+    <div class="progress-wrap">
+      <div class="progress-label" id="prog-label">0 / 43 days done</div>
+      <div class="progress-bar-outer"><div class="progress-bar-inner" id="prog-bar" style="width:0%"></div></div>
+    </div>
+    <button class="theme-btn" data-theme-toggle aria-label="Toggle theme">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-heading">CS Ankita Priya Time Table 2026</div>
+  <div class="hero-quote">"The exam doesn't reward who studied the most — it rewards who studied <span>the right things</span>, consistently."</div>
+</section>
+
+<!-- LEGEND -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#dc2626"></div> High Priority</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#d97706"></div> Medium Priority</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#16a34a"></div> Low Priority</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#6b7280"></div> Open Book</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#7c3aed"></div> Mock / Analysis</div>
+  <div class="legend-item" style="margin-left:8px;padding-left:8px;border-left:1px solid var(--border)">
+    <div class="legend-dot" style="background:#e6a817;border-radius:3px"></div> Today
+  </div>
+</div>
+
+<div class="scroll-hint">← Scroll horizontally to see all sessions →</div>
+
+<!-- TABLE -->
+<div class="table-wrap">
+<table id="main-table">
+<thead>
+  <tr>
+    <th style="min-width:90px">Date</th>
+    <th style="min-width:200px">🌅 Morning (7–9 AM)</th>
+    <th style="min-width:200px">☀️ Mid-Morning (10–12 PM)</th>
+    <th style="min-width:200px">🌤️ Afternoon (2–4 PM)</th>
+    <th style="min-width:60px">✓</th>
+  </tr>
+</thead>
+<tbody id="table-body"></tbody>
+</table>
+</div>
+
+<script>
+// ─── DATA ──────────────────────────────────────────────────────────────────
+const rows = [
+  // PHASE 1 BANNER
+  {type:'phase', label:'PHASE 1 — First Revision: High-Priority Chapters First (Apr 8–27)'},
+
+  // Apr 8 — SMCF start (weak area, highest weightage)
+  {date:'Apr 8', day:'Wed', m:'SMCF|L14 – Raising Funds from Debt & Procedural Aspects|high',
+   mm:'SMCF|L8 – Raising Funds from Equity – Public Funding|high',
+   a:'SMCF|L4 – Strategic Analysis & Planning|high'},
+
+  // Apr 9
+  {date:'Apr 9', day:'Thu', m:'SMCF|L1 – Introduction to Strategic Management|high',
+   mm:'SMCF|L3 – Business Policy & Formulation of Functional Strategy|high',
+   a:'SMCF|L6 – Managing Multi-Business Firm & Strategic Edge|med'},
+
+  // Apr 10
+  {date:'Apr 10', day:'Fri', m:'SMCF|L11 – Raising Funds – Private Funding|med',
+   mm:'SMCF|L12 – Raising Funds – Non-Fund Based|med',
+   a:'SMCF|L2 – Analyzing External & Internal Environment + L5 – Competitive Positioning|med'},
+
+  // Apr 11
+  {date:'Apr 11', day:'Sat', m:'SMCF|L16 – Foreign Funding: Instruments, Laws & Procedures|med',
+   mm:'SMCF|L7 – Sources of Corporate Funding + L17 – Role of Intermediaries|med',
+   a:'SMCF|L9 REITs + L10 InvITs + L13 IFSC + L15 Foreign Institutions + L18 Project Evaluation (Quick pass)|low'},
+
+  // Apr 12 — SUNDAY LIGHT
+  {date:'Apr 12', day:'Sun', type:'buffer', m:'SMCF|SMCF Full Revision: Re-read all L1–L6 SM notes + attempt 10 PYQs|med',
+   mm:'—|Rest & light reading only|low', a:'—|—|low'},
+
+  // Apr 13 — ESG starts (theory weak area)
+  {date:'Apr 13', day:'Mon', m:'ESG|Ch.18 – Risk Management (40 avg marks – your strong area, fast deep pass)|high',
+   mm:'ESG|Ch.3 – Board Effectiveness/Building Better Boards (17.33 avg)|high',
+   a:'ESG|Ch.19 – Sustainability Audit; ESG Rating; Emerging Mandates (9.33 avg)|high'},
+
+  // Apr 14
+  {date:'Apr 14', day:'Tue', m:'ESG|Ch.16 – Governance Influencers (8.33 avg)|high',
+   mm:'ESG|Ch.11 – Business Ethics, Code of Conduct & Anti-Bribery (7.33 avg)|high',
+   a:'ESG|Ch.15 – Green Initiatives (7 avg)|high'},
+
+  // Apr 15
+  {date:'Apr 15', day:'Wed', m:'ESG|Ch.4 – Board Processes through Secretarial Standards (6.66 avg)|med',
+   mm:'ESG|Ch.20 – Integrated Reporting; GRI; BRSR; Sustainability Reporting (6.66 avg)|med',
+   a:'ESG|Ch.7 – Governance in Professional Managed Company + Ch.8 – Board Disclosures (5.33 avg)|med'},
+
+  // Apr 16
+  {date:'Apr 16', day:'Thu', m:'ESG|Ch.9 – Data Governance + Ch.5 – Board Committees + Ch.10 – Stakeholders Rights|med',
+   mm:'ESG|Ch.2 – Legislative Framework + Ch.12 + Ch.13 + Ch.14 + Ch.17 (low weightage quick pass)|low',
+   a:'ESG|Ch.1 – Conceptual Framework (0 avg – 30 min only) + ESG Full PYQ Practice|low'},
+
+  // Apr 17 — SUNDAY LIGHT
+  {date:'Apr 17', day:'Sun', type:'buffer', m:'ESG|Quick recall: Ch.18 + Ch.3 + Ch.19 notes review only|high',
+   mm:'—|Rest|low', a:'—|—|low'},
+
+  // Apr 18 — CMADD starts (theory weak, memorisation challenge)
+  {date:'Apr 18', day:'Mon', m:'CMADD|Ch.8 – Concepts of Various Audits (15.22 avg)|high',
+   mm:'CMADD|Ch.6 – Non-Compliances, Penalties & Adjudications (15.11 avg)|high',
+   a:'CMADD|Ch.7 – Reliefs and Remedies (10.66 avg)|high'},
+
+  // Apr 19
+  {date:'Apr 19', day:'Tue', m:'CMADD|Ch.2 – Documentation & Maintenance of Records (9.77 avg)|high',
+   mm:'CMADD|Ch.3 – Signing and Certification (9.77 avg)|high',
+   a:'CMADD|Ch.16 – Due Diligence (8.55 avg)|high'},
+
+  // Apr 20
+  {date:'Apr 20', day:'Wed', m:'CMADD|Ch.13 – Secretarial Audit (8 avg)|high',
+   mm:'CMADD|Ch.1 – Compliance Framework (7.22 avg)|med',
+   a:'CMADD|Ch.14 – Internal Audit & Performance Audit (6.88 avg)|med'},
+
+  // Apr 21
+  {date:'Apr 21', day:'Thu', m:'CMADD|Ch.12 – Forming an Opinion & Reporting (6.77 avg)|med',
+   mm:'CMADD|Ch.10 – Audit Principles & Techniques (6.66 avg) + Ch.15 – Peer Review (6.22 avg)|med',
+   a:'CMADD|Ch.9 – Audit Engagement (6 avg) + Ch.11 – Audit Process & Documentation (4.77 avg)|med'},
+
+  // Apr 22
+  {date:'Apr 22', day:'Fri', m:'CMADD|Ch.4 – Legal Framework Governing Company Secretaries (4.44 avg) + Ch.5 – Values & Ethics (3.22 avg)|low',
+   mm:'CMADD|PYQ Writing Practice: Ch.6 + Ch.7 + Ch.8 (most asked trio)|high',
+   a:'CMADD|PYQ Practice: Ch.2 + Ch.3 + Ch.13 answers written out|high'},
+
+  // Apr 23 — SUNDAY LIGHT
+  {date:'Apr 23', day:'Sun', type:'buffer', m:'CMADD|Quick recall: Ch.6 + Ch.7 + Ch.8 flash notes|high',
+   mm:'—|Rest|low', a:'—|—|low'},
+
+  // Apr 24 — DRAFTING starts
+  {date:'Apr 24', day:'Mon', m:'DRAFTING|Ch.4 – Drafting of Agreements, Deeds & Documents (30 avg – highest)|high',
+   mm:'DRAFTING|Ch.3 – Laws relating to Drafting & Conveyancing (20 avg)|high',
+   a:'DRAFTING|Ch.13 – Adjudications & Appeals under SEBI Laws (16.66 avg)|high'},
+
+  // Apr 25
+  {date:'Apr 25', day:'Tue', m:'DRAFTING|Ch.1 – Types of Documents (12.33 avg)|high',
+   mm:'DRAFTING|Ch.12 – Applications, Petitions & Appeals under Companies Act 2013 (11.66 avg)|high',
+   a:'DRAFTING|Ch.8 – Commercial Contract Management (6.66) + Ch.9 – Judicial & Admin Framework (6.66)|med'},
+
+  // Apr 26
+  {date:'Apr 26', day:'Wed', m:'DRAFTING|Ch.10 – Pleadings (6 avg) + Ch.5 – Drafting of Commercial Contracts (5 avg)|med',
+   mm:'DRAFTING|Ch.6 – Documents under Companies Act 2013 (5) + Ch.7 – Art of Opinion Writing (5)|med',
+   a:'DRAFTING|Ch.2 + Ch.11 + Ch.14 (low weightage – 30 min each) + Full Drafting PYQ Practice|low'},
+
+  // Apr 27 — CRVI starts (strong on restructuring/insolvency, weak on valuation)
+  {date:'Apr 27', day:'Thu', m:'CRVI|Ch.1 – Types of Corporate Restructuring + Ch.2 – Acquisition of Company/Business|high',
+   mm:'CRVI|Ch.3 – Planning & Strategy + Ch.4 – Process of M&A Transactions|high',
+   a:'CRVI|Ch.5 – Documentation: Merger & Amalgamation + Ch.6 – Accounting in Corporate Restructuring|med'},
+
+  // Apr 28 — SUNDAY LIGHT
+  {date:'Apr 28', day:'Sun', type:'buffer', m:'DRAFTING|Quick pass: Ch.4 + Ch.3 model answers re-read|high',
+   mm:'—|Rest|low', a:'—|—|low'},
+
+  // Apr 29
+  {date:'Apr 29', day:'Mon', m:'CRVI|Ch.7 – Taxation & Stamp Duty + Ch.8 – Regulation of Combinations|med',
+   mm:'CRVI|Ch.9 – Regulatory Approvals + Ch.10 – Fast Track Mergers + Ch.11 – Cross Border Mergers|med',
+   a:'CRVI|Ch.12 – Overview of Business Valuation (WEAK AREA – slow careful study)|high'},
+
+  // Apr 30
+  {date:'Apr 30', day:'Tue', m:'CRVI|Ch.13 – Valuation of Business & Assets for Corporate Restructuring (WEAK AREA)|high',
+   mm:'CRVI|Ch.14 – Insolvency (gateway chapter) + Ch.15 – Application for CIRP|high',
+   a:'CRVI|Ch.16 – Role, Functions & Duties of IP/IRP/RP + Ch.17 – Resolution Strategies|high'},
+
+  // May 1
+  {date:'May 1', day:'Wed', m:'CRVI|Ch.18 – Convening & Conduct of Meetings of CoC + Ch.19 – Preparation & Approval of Resolution Plan|high',
+   mm:'CRVI|Ch.20 – Pre-Packaged Insolvency Resolution Process + Ch.21 – Cross Border Insolvency|high',
+   a:'CRVI|Ch.22 – Liquidation on/after failing of Resolution Plan + Ch.23 – Voluntary Liquidation|med'},
+
+  // May 2
+  {date:'May 2', day:'Thu', m:'CRVI|Ch.24 – Debt Recovery & SARFAESI + Ch.25 – Winding-up by Tribunal (Companies Act 2013)|med',
+   mm:'CRVI|Ch.26 – Strike Off & Restoration of Name of Company and LLP|low',
+   a:'CRVI|Full PYQ Practice: Valuation + Restructuring questions|high'},
+
+  // May 3 — IBC (open book, strong — light pass)
+  {date:'May 3', day:'Fri', m:'IBC|Unit 1 Ch.1–4: CIRP framework, key concepts – index familiarisation (Open Book)|open',
+   mm:'IBC|Unit 2 Ch.5–8: Liquidation, Personal Insolvency – chapter location mapping|open',
+   a:'IBC|Unit 3 Ch.9–13 + Unit 4 Ch.14–17: Cross-border, SARFAESI, winding up – speed index drill|open'},
+
+  // May 4 — SUNDAY LIGHT
+  {date:'May 4', day:'Sun', type:'buffer', m:'CRVI|Quick recall: Valuation chapters notes + 2 valuation PYQs|high',
+   mm:'—|Rest|low', a:'—|—|low'},
+
+  // May 5 — CSRSG (open book — light pass)
+  {date:'May 5', day:'Mon', m:'CSRSG|Unit 1 Ch.1–4: CSR framework, law, policy – concept mapping (Open Book)|open',
+   mm:'CSRSG|Unit 2 Ch.5–8: Governance framework, Board responsibilities – chapter index|open',
+   a:'CSRSG|Unit 3 Ch.8–11 + Unit 4 Ch.12–16: Social governance, disclosures – location drill|open'},
+
+  // PHASE 2 BANNER
+  {type:'phase', label:'PHASE 2 — Full Mock Tests (May 6–8)'},
+
+  // May 6
+  {date:'May 6', day:'Tue', type:'mock', m:'MOCK|Module 1 – DRAFTING: Full 3-hr mock in exam conditions|mock',
+   mm:'MOCK|Module 1 – CRVI: Full 3-hr mock in exam conditions|mock',
+   a:'MOCK|Module 1 – CMADD: Full 3-hr mock in exam conditions|mock'},
+
+  // May 7
+  {date:'May 7', day:'Wed', type:'mock', m:'MOCK|Module 2 – ESG: Full 3-hr mock in exam conditions|mock',
+   mm:'MOCK|Module 2 – SMCF: Full 3-hr mock in exam conditions|mock',
+   a:'MOCK|Module 2 – IBC + CSRSG: Full mock in exam conditions|mock'},
+
+  // May 8 — Analysis
+  {date:'May 8', day:'Thu', type:'mock', m:'MOCK|Full analysis: Score each paper, note every weak chapter|mock',
+   mm:'MOCK|Rewrite every wrong/incomplete answer once from study material|mock',
+   a:'MOCK|Make list: which chapters need urgent attention in Phase 3|mock'},
+
+  // PHASE 3 BANNER
+  {type:'phase', label:'PHASE 3 — Second Revision: Weak Areas + PYQ Drilling (May 9–18)'},
+
+  // May 9
+  {date:'May 9', day:'Fri', m:'SMCF|L14 – Debt Funding + L8 – Equity Funding: Repeat from mock error areas|high',
+   mm:'SMCF|L4 + L1 + L3 – Strategic Management trio: speed revision|high',
+   a:'ESG|Ch.18 Risk Management: full answer writing practice|high'},
+
+  // May 10
+  {date:'May 10', day:'Sat', m:'ESG|Ch.3 – Board Effectiveness + Ch.19 – Sustainability Audit: PYQ answers|high',
+   mm:'ESG|Ch.16 Governance Influencers + Ch.11 Ethics: written answers|high',
+   a:'CMADD|Ch.8 + Ch.6 + Ch.7: answer writing sprint (top 3 chapters)|high'},
+
+  // May 11 — SUNDAY LIGHT
+  {date:'May 11', day:'Sun', type:'buffer', m:'—|Rest + light reading of short notes made|low',
+   mm:'—|—|low', a:'—|—|low'},
+
+  // May 12
+  {date:'May 12', day:'Mon', m:'CMADD|Ch.2 + Ch.3 + Ch.16 + Ch.13: rapid second pass|high',
+   mm:'DRAFTING|Ch.4 + Ch.3 + Ch.13: 2 full drafts written from memory|high',
+   a:'DRAFTING|Ch.1 + Ch.12: PYQ answer writing|high'},
+
+  // May 13
+  {date:'May 13', day:'Tue', m:'CRVI|Valuation Ch.12 + Ch.13: 3 valuation PYQs solved|high',
+   mm:'CRVI|Restructuring Ch.1–Ch.4: key provisions + process charts|high',
+   a:'CRVI|Insolvency Ch.14–Ch.21: rapid recall pass (strong area)|high'},
+
+  // May 14
+  {date:'May 14', day:'Wed', m:'SMCF|L11 + L12 + L16: Private & Non-Fund funding revision|med',
+   mm:'ESG|Ch.4 + Ch.20 + Ch.7 + Ch.8: second pass key theory|med',
+   a:'CMADD|Ch.9 + Ch.10 + Ch.11 + Ch.14 + Ch.15: remaining chapters rapid pass|med'},
+
+  // May 15
+  {date:'May 15', day:'Thu', m:'IBC|Quick index refresh: all 4 units – 30 min per unit (Open Book)|open',
+   mm:'CSRSG|Quick index refresh: all 4 units – 30 min per unit (Open Book)|open',
+   a:'DRAFTING|All 14 chapters: 15-min flash pass each, format reminders|med'},
+
+  // May 16
+  {date:'May 16', day:'Fri', m:'SMCF|All 18 lessons: formula sheet + key concept 1-line summary|high',
+   mm:'ESG|Ch.18 + Ch.3: answer writing (these 2 alone = 57 avg marks)|high',
+   a:'CRVI|Valuation: last practice sums + key formula sheet|high'},
+
+  // May 17
+  {date:'May 17', day:'Sat', m:'CMADD|Ch.6 + Ch.8 + Ch.7: 3 model answers written|high',
+   mm:'DRAFTING|Ch.4 + Ch.13 + Ch.3: 3 complete drafts written|high',
+   a:'All subjects|Cross-subject link review: IBC ↔ CRVI, ESG ↔ CSRSG, Drafting ↔ Companies Act|med'},
+
+  // May 18 — SUNDAY LIGHT
+  {date:'May 18', day:'Sun', type:'buffer', m:'—|Rest + light subject notes reading|low',
+   mm:'—|—|low', a:'—|—|low'},
+
+  // PHASE 4 BANNER
+  {type:'phase', label:'PHASE 4 — Second Mock Test (May 19–20)'},
+
+  // May 19
+  {date:'May 19', day:'Mon', type:'mock', m:'MOCK|Module 1 full mock: DRAFTING + CRVI + CMADD (back to back)|mock',
+   mm:'MOCK|Immediate paper-wise scoring after each subject|mock',
+   a:'MOCK|Module 2 full mock: ESG + SMCF + IBC/CSRSG|mock'},
+
+  // May 20
+  {date:'May 20', day:'Tue', type:'mock', m:'MOCK|Full analysis both modules: compare Mock 1 vs Mock 2 scores|mock',
+   mm:'MOCK|Rewrite flagged answers. Papers below 55% → Phase 5 intensive|mock',
+   a:'MOCK|Papers above 65% → light pass only in Phase 5|mock'},
+
+  // PHASE 5 BANNER
+  {type:'phase', label:'PHASE 5 — Final Recall Only (May 21–31) — NO NEW TOPICS'},
+
+  // May 21
+  {date:'May 21', day:'Wed', m:'ESG|Ch.18 Risk Mgmt + Ch.3 Board Effectiveness: 1-page flash notes read|high',
+   mm:'ESG|Ch.19 + Ch.16 + Ch.11 + Ch.15: key points only|high',
+   a:'SMCF|All SM lessons L1–L6: one-line summary recall|high'},
+
+  // May 22
+  {date:'May 22', day:'Thu', m:'SMCF|L14 + L8 + L4: formula sheet + 1 sum each|high',
+   mm:'CMADD|Ch.8 + Ch.6 + Ch.7: key statutory provisions list|high',
+   a:'CMADD|Ch.2 + Ch.3 + Ch.13 + Ch.16: flash recall|high'},
+
+  // May 23
+  {date:'May 23', day:'Fri', m:'DRAFTING|Ch.4 + Ch.3 + Ch.13: read 3 standard formats aloud|high',
+   mm:'DRAFTING|Ch.1 + Ch.12 + Ch.8 + Ch.9: key points recall|med',
+   a:'CRVI|Valuation Ch.12 + Ch.13: formulas + 1 sum|high'},
+
+  // May 24 — SUNDAY LIGHT
+  {date:'May 24', day:'Sat', type:'buffer', m:'CRVI|Restructuring Ch.1–4 + Insolvency Ch.15–21: key provisions list|high',
+   mm:'—|Rest|low', a:'—|—|low'},
+
+  // May 25
+  {date:'May 25', day:'Sun', type:'buffer', m:'—|Rest — only read personal handwritten short notes|low',
+   mm:'—|—|low', a:'—|—|low'},
+
+  // May 26
+  {date:'May 26', day:'Mon', m:'All subjects|Module 1 speed pass: 30 min each — DRAFTING + CRVI + CMADD|high',
+   mm:'All subjects|Module 2 speed pass: 30 min each — ESG + SMCF + CSRSG/IBC|high',
+   a:'All subjects|Answer format reminders: presentation, structure, word count tips|med'},
+
+  // May 27
+  {date:'May 27', day:'Tue', m:'ESG|FINAL read: Ch.18 notes only (40 marks — worth 30 min alone)|high',
+   mm:'SMCF|FINAL: L14 + L8 key points|high',
+   a:'DRAFTING|FINAL: Ch.4 one full draft practice|high'},
+
+  // May 28
+  {date:'May 28', day:'Wed', m:'CMADD|FINAL: Ch.6 + Ch.7 + Ch.8 key points list|high',
+   mm:'CRVI|FINAL: Valuation formulas + Ch.1 restructuring types|high',
+   a:'IBC + CSRSG|FINAL: Chapter index refresh — know exactly where everything is|open'},
+
+  // May 29
+  {date:'May 29', day:'Thu', m:'—|🟢 WRAP UP — Read your personal notes only. No new content.|low',
+   mm:'—|Mental preparation. Confidence review of your strong topics.|low',
+   a:'—|Relax by evening. Exams begin June 2026.|low'},
+];
+
+// ─── RENDER ───────────────────────────────────────────────────────────────
+const tbody = document.getElementById('table-body');
+const today = new Date();
+const todayStr = today.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+
+function subjectColor(subj){
+  const map={DRAFTING:'DRAFTING',CRVI:'CRVI',CMADD:'CMADD',CSRSG:'CSRSG',IBC:'IBC',ESG:'ESG',SMCF:'SMCF'};
+  return map[subj]||'DRAFTING';
+}
+
+function renderCell(val){
+  if(!val||val==='—|—|low'||val==='—|Rest|low'||val.startsWith('—|')) {
+    const parts=(val||'').split('|');
+    if(parts[1]&&parts[1].trim()&&parts[1].trim()!=='—'){
+      return `<div class="session-cell"><div class="chapter-text p-low" style="color:var(--text-muted);font-style:italic">${parts[1]}</div></div>`;
+    }
+    return '<td class="session-cell"><div style="color:var(--text-faint);font-size:12px">—</div></td>';
+  }
+  const [subj,chapter,pri]=val.split('|');
+  const priClass=pri==='high'?'p-high':pri==='med'?'p-med':pri==='open'?'p-open':pri==='mock'?'p-mock':'p-low';
+  const pillClass='pill-'+subjectColor(subj);
+  if(subj==='MOCK'||subj==='—'||subj==='All subjects'){
+    const cls=pri==='mock'?'mock-label':'open-label';
+    return `<div class="${cls}"><span class="${priClass}"></span>${chapter}</div>`;
+  }
+  return `<div class="subject-cell"><span class="subject-pill ${pillClass}">${subj}</span><div class="chapter-text ${priClass}">${chapter}</div></div>`;
+}
+
+let total=0;
+rows.forEach((r,i)=>{
+  if(r.type==='phase'){
+    const tr=document.createElement('tr');
+    tr.className='phase-row';
+    tr.innerHTML=`<td colspan="5"><div class="phase-label"><span class="phase-dot"></span>${r.label}</div></td>`;
+    tbody.appendChild(tr);
+    return;
+  }
+
+  total++;
+  const isToday=(r.date===todayStr);
+  const isBuffer=r.type==='buffer'||r.type==='mock';
+  const tr=document.createElement('tr');
+  if(isToday) tr.classList.add('today-row');
+  if(r.type==='buffer') tr.classList.add('buffer-row');
+
+  const saved=localStorage.getItem('tick_'+r.date);
+  const done=saved==='1';
+
+  const todayBadge=isToday?'<div class="today-badge">TODAY</div>':'';
+
+  tr.innerHTML=`
+    <td class="date-cell">
+      <div class="date-inner">
+        <div class="date-day">${r.date}</div>
+        <div class="date-weekday">${r.day}</div>
+        ${todayBadge}
+      </div>
+    </td>
+    <td class="session-cell"><div class="session-label">Morning · 7–9 AM</div>${renderCell(r.m)}</td>
+    <td class="session-cell"><div class="session-label">Mid-Morning · 10–12 PM</div>${renderCell(r.mm)}</td>
+    <td class="session-cell"><div class="session-label">Afternoon · 2–4 PM</div>${renderCell(r.a)}</td>
+    <td class="tick-cell">
+      <button class="tick-btn${done?' done':''}" data-date="${r.date}" aria-label="Mark ${r.date} complete">
+        ${done?'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>':'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>'}
+      </button>
+    </td>`;
+  tbody.appendChild(tr);
+});
+
+// ─── TICK LOGIC ──────────────────────────────────────────────────────────
+function updateProgress(){
+  const btns=document.querySelectorAll('.tick-btn');
+  let done=0;
+  btns.forEach(b=>{if(b.classList.contains('done'))done++});
+  const pct=Math.round(done/total*100);
+  document.getElementById('prog-label').textContent=done+' / '+total+' days done';
+  document.getElementById('prog-bar').style.width=pct+'%';
+}
+
+document.getElementById('table-body').addEventListener('click',e=>{
+  const btn=e.target.closest('.tick-btn');
+  if(!btn) return;
+  const date=btn.dataset.date;
+  const isDone=btn.classList.toggle('done');
+  localStorage.setItem('tick_'+date, isDone?'1':'0');
+  btn.classList.add('pop');
+  btn.innerHTML=isDone
+    ?'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>'
+    :'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
+  setTimeout(()=>btn.classList.remove('pop'),300);
+  updateProgress();
+});
+
+updateProgress();
+
+// ─── COUNTDOWN ──────────────────────────────────────────────────────────
+function updateCountdown(){
+  const exam=new Date('2026-06-01');
+  const now=new Date();
+  const diff=Math.ceil((exam-now)/(1000*60*60*24));
+  document.getElementById('countdown').textContent=diff>0?diff+' days to June 2026 exam':'Exam time!';
+}
+updateCountdown();
+
+// ─── THEME TOGGLE ───────────────────────────────────────────────────────
+(function(){
+  const btn=document.querySelector('[data-theme-toggle]');
+  const html=document.documentElement;
+  let dark=window.matchMedia('(prefers-color-scheme:dark)').matches;
+  html.setAttribute('data-theme',dark?'dark':'light');
+  btn.innerHTML=dark
+    ?'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+    :'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  btn.addEventListener('click',()=>{
+    dark=!dark;
+    html.setAttribute('data-theme',dark?'dark':'light');
+    btn.innerHTML=dark
+      ?'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+      :'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  });
+})();
+
+// Scroll to today
+setTimeout(()=>{
+  const todayRow=document.querySelector('.today-row');
+  if(todayRow) todayRow.scrollIntoView({behavior:'smooth',block:'center'});
+},600);
+</script>
+</body>
+</html>
